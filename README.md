@@ -17,6 +17,7 @@
 *epon bind-onu mac d425.cc06.aacb 9*
 *epon bind-onu mac d425.cc07.2478 10*
 
+
 **Пример вывода скрипта:**
 
 *gpon bind-onu sn BDCM:62AB3943 1*
