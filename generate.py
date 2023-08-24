@@ -1,3 +1,5 @@
+import sys
+
 def generate_serial_number(mac_address, port_number):
     # Разделяем MAC-адрес на байты и убираем точки и двоеточия
     mac_parts = mac_address.replace('.', '').replace(':', '')
@@ -52,9 +54,17 @@ def read_mac_addresses_from_file(file_path):
                 mac_entries.append((parts[3], int(parts[4])))
     return mac_entries
 
-# Примеры сопоставлений
-examples = read_mac_addresses_from_file('mac_addresses.txt')
+def main(file_path):
+    examples = read_mac_addresses_from_file(file_path)
 
-for index, (mac_address, port_number) in enumerate(examples, start=1):
-    generated_serial = generate_serial_number(mac_address, port_number)
-    print(f"gpon bind-onu sn {generated_serial}")
+    for index, (mac_address, port_number) in enumerate(examples, start=1):
+        generated_serial = generate_serial_number(mac_address, port_number)
+        print(f"gpon bind-onu sn {generated_serial} {port_number}")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script_name.py input_file")
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+    main(input_file)
